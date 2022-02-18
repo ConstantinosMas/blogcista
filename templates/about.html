@@ -1,0 +1,37 @@
+{% extends 'bootstrap/base.html' %}
+
+
+{% block content %}
+{% include "header.html" %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url({{ url_for('static', filename='img/about-bg.jpg')}})">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>About Me</h1>
+            <span class="subheading">This is what I do.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+<body style="background-color:#1f1f1f">
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <p style="color:white">Spicy? Upsetting? Harsh? Yes, all of them describe <b>truth</b>. I bring you the facts. You decide what your truth is.</p>
+        <p style="color:white">Is Keanu Reeves immortal? Is there a luxurious castle behind all socialism? Did aliens tweet "covfefe"? The questions run through and through. My job is to wonder, your job is to partake in it.</p>
+        <p style="color:white">Between studying, sleeping, making vulgar jokes with my friends, games and movies, my brain works overtime to stress me out about the big as well as the little things in life. What a time to be alive.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+</body>
+  {% include "footer.html" %}
+
+{% endblock %}

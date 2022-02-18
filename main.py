@@ -13,14 +13,14 @@ import smtplib
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 ckeditor = CKEditor(app)
 Bootstrap(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False, base_url=None)
 
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///blog.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -166,22 +166,22 @@ def about():
 
 @app.route("/contact", methods=["POST", "GET"])
 def contact():
-    # if request.method == "POST":
-    #     name = request.form.get("name")
-    #     email = request.form.get("email")
-    #     phone = request.form.get("phone")
-    #     message = request.form.get("message")
-    #     print(f"{name} + {email} + {phone} + {message}")
-    #     with smtplib.SMTP("smtp.gmail.com") as connection:
-    #         connection.starttls()
-    #         connection.login(user=os.environ["MY_EMAIL"], password=os.environ["MY_PASS"])
-    #         connection.sendmail(from_addr=os.environ["MY_EMAIL"], to_addrs=email,
-    #                             msg="Subject:New message from Blog\n\n"
-    #                                 f"Name: {name}\n"
-    #                                 f"Phone: {phone}\n"
-    #                                 f"{message}")
-    #         message_sent = True
-    #         return redirect(url_for("contact", message_sent=message_sent, current_user=current_user))
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        phone = request.form.get("phone")
+        message = request.form.get("message")
+        print(f"{name} + {email} + {phone} + {message}")
+        with smtplib.SMTP("smtp.gmail.com") as connection:
+            connection.starttls()
+            connection.login(user=os.environ.get("MY_EMAIL"), password=os.environ.get("MY_PASS"))
+            connection.sendmail(from_addr=os.environ.get("MY_EMAIL"), to_addrs=email,
+                                msg="Subject:New message from Blog\n\n"
+                                    f"Name: {name}\n"
+                                    f"Phone: {phone}\n"
+                                    f"{message}")
+            message_sent = True
+            return redirect(url_for("contact", message_sent=message_sent, current_user=current_user))
     return render_template("contact.html", current_user=current_user)
 
 

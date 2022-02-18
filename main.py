@@ -166,22 +166,22 @@ def about():
 
 @app.route("/contact", methods=["POST", "GET"])
 def contact():
-    if request.method == "POST":
-        name = request.form.get("name")
-        email = request.form.get("email")
-        phone = request.form.get("phone")
-        message = request.form.get("message")
-        print(f"{name} + {email} + {phone} + {message}")
-        with smtplib.SMTP("smtp.gmail.com") as connection:
-            connection.starttls()
-            connection.login(user=os.environ["MY_EMAIL"], password=os.environ["MY_PASS"])
-            connection.sendmail(from_addr=os.environ["MY_EMAIL"], to_addrs=email,
-                                msg="Subject:New message from Blog\n\n"
-                                    f"Name: {name}\n"
-                                    f"Phone: {phone}\n"
-                                    f"{message}")
-            message_sent = True
-            return redirect(url_for("contact", message_sent=message_sent, current_user=current_user))
+    # if request.method == "POST":
+    #     name = request.form.get("name")
+    #     email = request.form.get("email")
+    #     phone = request.form.get("phone")
+    #     message = request.form.get("message")
+    #     print(f"{name} + {email} + {phone} + {message}")
+    #     with smtplib.SMTP("smtp.gmail.com") as connection:
+    #         connection.starttls()
+    #         connection.login(user=os.environ["MY_EMAIL"], password=os.environ["MY_PASS"])
+    #         connection.sendmail(from_addr=os.environ["MY_EMAIL"], to_addrs=email,
+    #                             msg="Subject:New message from Blog\n\n"
+    #                                 f"Name: {name}\n"
+    #                                 f"Phone: {phone}\n"
+    #                                 f"{message}")
+    #         message_sent = True
+    #         return redirect(url_for("contact", message_sent=message_sent, current_user=current_user))
     return render_template("contact.html", current_user=current_user)
 
 
